@@ -8,7 +8,7 @@
             <router-link :to="{ name : 'todo',params : { id : todo.id }}">{{ todo.title }}</router-link>
 
             <button class="btn btn-warning btn-xs pull-right"
-                    v-on:click="deleteTodo(index,todo)"
+                    v-on:click="deleteTodo(todo,index)"
             >Delete</button>
 
             <button class="btn btn-xs pull-right margin-right-10"
@@ -41,18 +41,11 @@
           }
         },
         methods: {
-            deleteTodo(index,todo){
-                this.axios.delete('http://laravel.dev/api/todo/' + todo.id + '/delete').then(response => {
-                    console.log(response.data)
-                    this.todos.splice(index,1)
-                })
-
+            deleteTodo(todo,index){
+                this.$store.dispatch('removeTodo', todo, index)
             },
             toggleCompleteTodo(todo){
-                this.axios.patch('http://laravel.dev/api/todo/' + todo.id + '/completed').then(response => {
-                    console.log(response.data)
-                    todo.completed = ! todo.completed
-                })
+                this.$store.dispatch('completeTodo', todo)
 
             }
         },

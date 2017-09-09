@@ -14,19 +14,14 @@
 
 <script>
     export default {
-        data(){
-            return {
-                newTodo: {id:null,title:'',completed:false}
+        computed:{
+            newTodo() {
+                return this.$store.state.newTodo
             }
         },
         methods: {
             addTodo(newTodo){
-                this.axios.post('http://laravel.dev/api/todo/create',{title:this.newTodo.title}).then(response => {
-                    console.log(response.data)
-                    this.todos.push(response.data)
-                })
-
-                this.newTodo = {id:null,title:'',completed:false}
+                this.$store.dispatch('saveTodo', newTodo)
             },
 
         }

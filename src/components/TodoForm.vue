@@ -14,7 +14,6 @@
 
 <script>
     export default {
-        props: ['todos'],
         data(){
             return {
                 newTodo: {id:null,title:'',completed:false}

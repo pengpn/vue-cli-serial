@@ -1,6 +1,6 @@
 <template>
     <div id="todos">
-    <ul class="list-group" v-if="todos.length > 0">
+    <ul class="list-group" >
         <li class="list-group-item"
             v-bind:class="{ 'completed' : todo.completed}"
             v-for="(todo,index) in todos">
@@ -18,7 +18,7 @@
 
         </li>
     </ul>
-    <todo-form :todos="todos"></todo-form>
+    <todo-form ></todo-form>
     </div>
 </template>
 <style>
@@ -35,7 +35,11 @@
     import TodoForm from './TodoForm'
     export default {
         name: 'todos',
-        props: ['todos'],
+        computed: {
+          todos () {
+              return this.$store.state.todos
+          }
+        },
         methods: {
             deleteTodo(index,todo){
                 this.axios.delete('http://laravel.dev/api/todo/' + todo.id + '/delete').then(response => {

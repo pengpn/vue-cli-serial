@@ -13,29 +13,29 @@ Vue.use(Vuex)
 
 Vue.config.productionTip = false
 
-// const store = new Vuex.store({
-//     state: {
-//       todos:[]
-//     },
-//     mutations: {//主要为了修改todos的数据
-//       get_todos_list (state, todos) {
-//         state.todos = todos
-//       }
-//     },
-//     actions: {
-//       getTodos(store) {
-//           Vue.axios.get('http://laravel.dev/api/todos').then((response) => {
-//               store.commit('get_todos_list', response.data)
-//           })
-//       }
-//     }
-// })
+const store = new Vuex.Store({
+    state: {
+      todos:[]
+    },
+    mutations: {//主要为了修改todos的数据
+      get_todos_list (state, todos) {
+        state.todos = todos
+      }
+    },
+    actions: {
+      getTodos(store) {
+          Vue.axios.get('http://laravel.dev/api/todos').then((response) => {
+              store.commit('get_todos_list', response.data)
+          })
+      }
+    }
+})
 
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  // store,
+  store,
   router,
   template: '<App/>',
   components: { App }

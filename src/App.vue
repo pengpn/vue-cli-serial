@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view :todos="todos"></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -9,20 +9,12 @@
 
 export default {
   name: 'app',
-  data() {
-      return {
-          todos: []
-      }
-  },
-  mounted() {
-      this.axios.get('http://laravel.dev/api/todos').then((response) => {
-          this.todos = response.data
-          console.log(response.data)
-      })
+  mounted () {
+      this.$store.dispatch('getTodos')
   },
   computed: {
       todoCount() {
-          return this.todos.length;
+          return this.$store.state.todos.length;
       }
   },
 
